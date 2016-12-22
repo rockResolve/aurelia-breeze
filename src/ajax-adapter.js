@@ -127,7 +127,7 @@ export class AjaxAdapter {
 
     requestInfo.config.request.fetch(config.url, init)
       .then(response => {
-        response.json()
+        return response.json()
           .then(data => {
             const breezeResponse = new HttpResponse(
               response.status,
@@ -135,14 +135,22 @@ export class AjaxAdapter {
               response.headers,
               requestInfo.zConfig);
 
-            if (response.ok) {
-              requestInfo.success(breezeResponse);
-            } else {
-              requestInfo.error(breezeResponse);
-            }
+            // aurelia-fetch puts all !response.ok through below catch
+            return requestInfo.success(breezeResponse);
           });
       })
-      .catch(error => requestInfo.error(error));
+      .catch(error => {
+        if (!error.json) {
+          return requestInfo.error(error);
+        }
+
+        return error.json()
+          .then(data => {
+            const breezeResponse = new HttpResponse(error.status, data,
+              error.headers, requestInfo.zConfig);
+            return requestInfo.error(breezeResponse);
+          });
+      });
   }
 }
 

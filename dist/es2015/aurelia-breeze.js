@@ -123,16 +123,21 @@ export let AjaxAdapter = class AjaxAdapter {
     }
 
     requestInfo.config.request.fetch(config.url, init).then(response => {
-      response.json().then(data => {
+      return response.json().then(data => {
         const breezeResponse = new HttpResponse(response.status, data, response.headers, requestInfo.zConfig);
 
-        if (response.ok) {
-          requestInfo.success(breezeResponse);
-        } else {
-          requestInfo.error(breezeResponse);
-        }
+        return requestInfo.success(breezeResponse);
       });
-    }).catch(error => requestInfo.error(error));
+    }).catch(error => {
+      if (!error.json) {
+        return requestInfo.error(error);
+      }
+
+      return error.json().then(data => {
+        const breezeResponse = new HttpResponse(error.status, data, error.headers, requestInfo.zConfig);
+        return requestInfo.error(breezeResponse);
+      });
+    });
   }
 };
 

@@ -232,17 +232,20 @@ System.register(['breeze-client', 'aurelia-binding', 'aurelia-fetch-client'], fu
           }
 
           requestInfo.config.request.fetch(config.url, init).then(function (response) {
-            response.json().then(function (data) {
+            return response.json().then(function (data) {
               var breezeResponse = new HttpResponse(response.status, data, response.headers, requestInfo.zConfig);
 
-              if (response.ok) {
-                requestInfo.success(breezeResponse);
-              } else {
-                requestInfo.error(breezeResponse);
-              }
+              return requestInfo.success(breezeResponse);
             });
           }).catch(function (error) {
-            return requestInfo.error(error);
+            if (!error.json) {
+              return requestInfo.error(error);
+            }
+
+            return error.json().then(function (data) {
+              var breezeResponse = new HttpResponse(error.status, data, error.headers, requestInfo.zConfig);
+              return requestInfo.error(breezeResponse);
+            });
           });
         };
 
