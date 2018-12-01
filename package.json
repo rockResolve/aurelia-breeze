@@ -21,6 +21,7 @@
   },
   "jspm": {
     "registry": "npm",
+    "jspmPackage": true,
     "main": "aurelia-breeze",
     "format": "amd",
     "directories": {
