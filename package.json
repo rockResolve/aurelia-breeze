@@ -28,14 +28,14 @@
       "dist": "dist/amd"
     },
     "peerDependencies": {
-      "aurelia-binding": "^1.0.0-rc.1.0.0",
+      "aurelia-binding": "^2.0.0",
       "aurelia-fetch-client": "^1.0.0-rc.1.0.0",
       "aurelia-pal": "^1.0.0-rc.1.0.0",
       "aurelia-templating": "^1.0.0-rc.1.0.0",
       "breeze-client": "^1.5.6"
     },
     "dependencies": {
-      "aurelia-binding": "^1.0.0-rc.1.0.0",
+      "aurelia-binding": "^2.0.0",
       "aurelia-fetch-client": "^1.0.0-rc.1.0.0",
       "aurelia-pal": "^1.0.0-rc.1.0.0",
       "aurelia-templating": "^1.0.0-rc.1.0.0",
@@ -53,7 +53,7 @@
     }
   },
   "dependencies": {
-    "aurelia-binding": "^1.0.0-rc.1.0.0",
+    "aurelia-binding": "^2.0.0",
     "aurelia-fetch-client": "^1.0.0-rc.1.0.0",
     "aurelia-pal": "^1.0.0-rc.1.0.0",
     "aurelia-templating": "^1.0.0-rc.1.0.0",
